@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/patient/updatePatient}" method="post"
+				enctype="multipart/form-data">
+				<fieldset>
+				
+					<legend class="center-block">Update Patient Information</legend>
+					
+					<input hidden="hidden" name="id" th:value="${patient.id}" />
+
+
+					<!-- First Name -->
+					<div class="form-group">
+						<label  class="col-md-2 control-label" for="title">First Name</label>
+
+						<div class="col-md-8">
+							<input type="text" name="firstName" class="form-control" id="title"
+								th:value="${patient.firstName}" required="required" placeholder="FirstName" />
+							<span class="help-block">First Name of the Patient</span>
+						</div>
+					</div>
+
+					<!-- Last Name -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="author">Last Name</label>
+						<div class="col-md-8">
+							<input type="text" name="lastName" class="form-control" id="author"
+								th:value="${patient.lastName}" required="required" placeholder="LastName" /> 
+								<span class="help-block">Last Name of the Patient</span>
+						</div>
+					</div>
+
+					<!-- Date of Birth -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="publicationDate">Date of Birth</label>
+						<div class="col-md-8">
+							<input type="date" required="required" class="form-control" id="publicationDate"
+								name="dateOfBirth" th:value="${patient.dateOfBirth}"
+								placeholder="Date of Birth" />
+							 <span class="help-block">Date of birth of the Patient</span>
+						</div>
+					</div>
+
+					<!-- gender -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="language">Gender</label>
+						<div class="col-md-8">
+							<select th:value="${patient.gender}" required="required" id="language" name="gender"
+								class="form-control">
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</div>
+					</div>
+					
+					<!-- Age -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="pageNumber">Age</label>
+
+						<div class="col-md-8">
+							<div class="input-group">
+								<input th:value="${patient.age}" required="required" type="number" step="0.01"
+									name="age" class="form-control" id="shippingWeight"
+									placeholder="Age of the Patient" /> <span
+									class="input-group-addon">years</span>
+							</div>
+							<span class="help-block">Age of the Patient</span>
+						</div>
+					</div>
+					
+					<!-- weight -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="shippingWeight">Weight</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<input th:value="${patient.weight}" required="required" type="number" step="0.01"
+									name="weight" class="form-control" id="shippingWeight"
+									placeholder="Weight" /> <span
+									class="input-group-addon">lbs</span>
+							</div>
+							<span class="help-block">Weight of the Patient</span>
+						</div>
+					</div>
+
+									
+					
+					<!-- disease type -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="category">Disease Type</label>
+
+						<div class="col-lg-3" >
+						 <select class="form-control" required="required" id="category" name="diseaseType">
+							<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option th:each="dropDownItem : ${patient.diseaseTypeList}"
+									th:value="${dropDownItem.diseaseTypeValue}" th:text="${dropDownItem.diseaseTypeValue}" />
+							</select>
+
+						</div>
+					</div>
+					
+					
+					<!--Doctor Name -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="category">Doctor Assigned</label>
+
+						<div class="col-lg-3" >
+					<select class="form-control" required="required" id="category" name="doctorName">
+							<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option th:each="dropDownItem : ${patient.doctorNameList}"
+									th:value="${dropDownItem.doctorName}" th:text="${dropDownItem.doctorName}" />
+							</select>
+
+						</div>
+					</div>
+					
+
+					<!-- Discharge Status-->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Discharged?</label>
+						<div class="col-md-8">
+							<label><input value="yes" type="radio" name="active"
+								checked="checked" />Yes </label> <label><input
+								value="no" type="radio" name="active" />
+								No </label> <span class="help-block">Whether the Patient is
+								discharged or not</span>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Treatment Description</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${patient.description}"
+								placeholder="Treatment Description for the Patient"></textarea>
+							<span class="help-block">Description of the Treatment</span>
+						</div>
+					</div>
+
+					<!-- upload image -->
+					<div class="form-group">
+						<div class="col-md-2">
+							<label for="patientImage">Upload Patient image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="patientImage" type="file" required="required" name="patientImage"
+								th:value="${patient.patientImage}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update Patient Information</button>
+							<a class="btn btn-danger" th:href="@{/patient/patientInfo(id=${patient.id})}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

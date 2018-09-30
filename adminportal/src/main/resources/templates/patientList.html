@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+		<div class="table-responsive">
+			<table id="patientListTable" class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<!-- <th><input th:id="selectAllPatients" type="checkbox" /></th> -->
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Disease Type</th>
+						<th>Age</th>
+						<th>Discharged?</th>
+						<th>Treated by</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="patient : ${patientList}">
+						<!-- <td>
+						<input hidden="hidden" name="id" th:value="${patient.id}" />
+						<input th:id="'selected'+${patient.id}" class="checkboxPatient" type="checkbox" />
+						</td> -->
+						<td><a th:href="@{/patient/patientInfo(id=${patient.id})}"><span th:text="${patient.firstName}"></span></a></td>
+						<td th:text="${patient.lastName}"></td>
+						<td th:text="${patient.diseaseType}"></td>
+						<td th:text="${patient.age}"></td>
+						<td th:text="${patient.active}"></td>
+						<td th:text="${patient.doctorName}"></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	<!-- <button th:id="deleteSelected" class="btn btn-danger ">Delete Selected</button> -->
+	</div>
+	
+	
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+	<script>
+		$(document).ready(function() {
+			$("#patientListTable").DataTable({
+				"lengthMenu": [[5,10,15,20,-1],[5,10,15,20,"All"]],
+				"ordering": false,
+				stateSave: true
+			});
+		});
+	</script>
+</body>
+</html>

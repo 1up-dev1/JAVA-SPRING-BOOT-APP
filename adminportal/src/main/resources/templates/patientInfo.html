@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/patient/patientList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Go back</a></li>
+				<li><a th:href="@{/patient/updatePatient?id=}+${patient.id}">Edit</a></li>
+			</ol>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+				<div class="panel-body">
+					<img th:src="@{/image/patient/}+${patient.id}+'.png'" class="img-responsive center-block" />
+				</div>
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<h3>Patient Information</h3>
+				<div class="row">
+					<div class="col-xs-6">
+						<p><strong>First Name: </strong><span th:text="${patient.firstName}"></span></p>
+						<p><strong>Last Name: </strong><span th:text="${patient.lastName}"></span></p>
+						<p><strong>Date of Birth: </strong><span th:text="${patient.dateOfBirth}"></span></p>
+						<p><strong>Gender: </strong><span th:text="${patient.gender}"></span></p>
+						<p><strong>Disease Type: </strong><span th:text="${patient.diseaseType}"></span></p>
+						<p><strong>Age: </strong><span th:text="${patient.age}"></span></p>
+				
+					</div>
+					<div class="col-xs-6">
+						
+						<p><Strong>Description: </Strong><span th:utext="${patient.description}"></span></p>
+						
+					</div>
+				</div>
+				
+				
+			</div>
+			
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
